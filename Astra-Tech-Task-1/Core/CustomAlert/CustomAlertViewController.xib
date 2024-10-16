@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomAlertViewController" customModule="Astra_Tech_Task_1" customModuleProvider="target">
+            <connections>
+                <outlet property="dataView" destination="jeh-ZZ-tcf" id="WF9-3q-RRW"/>
+                <outlet property="imageView" destination="qGj-91-VN0" id="JlZ-hW-ar0"/>
+                <outlet property="messageLabel" destination="Ane-c9-gV0" id="4mZ-LI-gfV"/>
+                <outlet property="titleLabel" destination="zHt-cY-3wB" id="XCP-0Q-dCM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jeh-ZZ-tcf" userLabel="Content View">
+                    <rect key="frame" x="20" y="285.66666666666669" width="353" height="281.00000000000006"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="checkmark.message.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="qGj-91-VN0">
+                            <rect key="frame" x="58" y="8.6666666666666643" width="237" height="83"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHt-cY-3wB">
+                            <rect key="frame" x="20" y="117" width="313" height="21"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Messgae" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ane-c9-gV0">
+                            <rect key="frame" x="20" y="168" width="313" height="17.666666666666657"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pS2-Fd-p1x">
+                            <rect key="frame" x="152.66666666666666" y="221" width="47.666666666666657" height="39"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="OK"/>
+                            <connections>
+                                <action selector="dismissButtonPressed:" destination="-1" eventType="touchUpInside" id="FUe-yn-90I"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemGray4Color"/>
+                    <constraints>
+                        <constraint firstItem="Ane-c9-gV0" firstAttribute="trailing" secondItem="zHt-cY-3wB" secondAttribute="trailing" id="6Tg-Y0-onM"/>
+                        <constraint firstItem="pS2-Fd-p1x" firstAttribute="centerX" secondItem="jeh-ZZ-tcf" secondAttribute="centerX" id="9NC-UW-v0t"/>
+                        <constraint firstItem="qGj-91-VN0" firstAttribute="height" secondItem="jeh-ZZ-tcf" secondAttribute="height" multiplier="0.3" id="ECK-fA-BoC"/>
+                        <constraint firstAttribute="trailing" secondItem="qGj-91-VN0" secondAttribute="trailing" constant="58" id="Gil-V0-AoO"/>
+                        <constraint firstItem="pS2-Fd-p1x" firstAttribute="top" secondItem="Ane-c9-gV0" secondAttribute="bottom" constant="35.329999999999998" id="NfM-Ey-6bE"/>
+                        <constraint firstItem="qGj-91-VN0" firstAttribute="top" secondItem="jeh-ZZ-tcf" secondAttribute="top" constant="8" id="Xhq-TV-OWd"/>
+                        <constraint firstAttribute="trailing" secondItem="zHt-cY-3wB" secondAttribute="trailing" constant="20" id="df0-js-qi9"/>
+                        <constraint firstItem="Ane-c9-gV0" firstAttribute="leading" secondItem="zHt-cY-3wB" secondAttribute="leading" id="eeW-4v-Hma"/>
+                        <constraint firstItem="qGj-91-VN0" firstAttribute="leading" secondItem="jeh-ZZ-tcf" secondAttribute="leading" constant="58" id="gvD-lD-Gaz"/>
+                        <constraint firstItem="Ane-c9-gV0" firstAttribute="top" secondItem="zHt-cY-3wB" secondAttribute="bottom" constant="30.000000000000284" id="k8M-CM-Gcb"/>
+                        <constraint firstItem="zHt-cY-3wB" firstAttribute="leading" secondItem="jeh-ZZ-tcf" secondAttribute="leading" constant="20" id="sSe-2y-RMd"/>
+                        <constraint firstItem="zHt-cY-3wB" firstAttribute="top" secondItem="qGj-91-VN0" secondAttribute="bottom" constant="25" id="yfm-iT-Ist"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="jeh-ZZ-tcf" secondAttribute="trailing" constant="20" id="3k0-KY-nQ3"/>
+                <constraint firstItem="jeh-ZZ-tcf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="J5A-wr-YFS"/>
+                <constraint firstItem="jeh-ZZ-tcf" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="SbB-73-Bnu"/>
+                <constraint firstItem="jeh-ZZ-tcf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="aXE-cq-AzH"/>
+                <constraint firstItem="jeh-ZZ-tcf" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.329812" id="fyz-oa-EFb"/>
+            </constraints>
+            <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="checkmark.message.fill" catalog="system" width="128" height="114"/>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
