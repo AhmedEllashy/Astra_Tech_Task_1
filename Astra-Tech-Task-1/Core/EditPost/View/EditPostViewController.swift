@@ -85,7 +85,9 @@ extension EditPostViewController: EditPostViewModelDelegate{
         DispatchQueue.main.async {
             self.presentedViewController?.dismiss(animated: true)
         }
-        coordinator?.customAlertController(image: "xmark.seal.fill", title: "ERROR", message: err, fromVC: self)
+        DispatchQueue.main.async {
+            self.coordinator?.customAlertController(image: "xmark.seal.fill", title: "ERROR", message: err, fromVC: self)
+        }
     }
     
     

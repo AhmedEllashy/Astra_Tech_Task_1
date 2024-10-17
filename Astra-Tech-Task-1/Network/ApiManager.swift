@@ -33,6 +33,7 @@ class ApiManager{
             
         
     }
+    
     func addPostApi(title: String,message: String,image: UIImage,completion: @escaping (Result<Data,ApiErrors>)-> Void){
         let endPoint = EndPoints.createPost.rawValue
         guard let url = URL(string: AppConstants.baseUrl + endPoint) else{return}

@@ -71,7 +71,13 @@ extension PostDetailsViewController: PostDetailsViewModelDelegate{
     }
     
     func errorOccured(err: String) {
-        print(err)
+        DispatchQueue.main.async {
+            self.presentedViewController?.dismiss(animated: true)
+        }
+        DispatchQueue.main.async {
+            self.coordinator?.customAlertController(image: "xmark.seal.fill", title: "ERROR", message: err, fromVC: self)
+        }
+        
     }
     
     
