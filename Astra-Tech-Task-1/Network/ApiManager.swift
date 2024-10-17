@@ -14,7 +14,9 @@ class ApiManager{
     
     func getPostsApi(completion: @escaping (Result<Data,ApiErrors>)-> Void){
         let endPoint = EndPoints.getPosts.rawValue
-        createHttpRequest(url: URL(string: AppConstants.baseUrl + endPoint), method: .GET) { request in
+        guard let url = URL(string: AppConstants.baseUrl + endPoint) else{return}
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let err = error {
                     print(err)
@@ -29,7 +31,7 @@ class ApiManager{
             }
             task.resume()
             
-        }
+        
     }
     func addPostApi(title: String,message: String,image: UIImage,completion: @escaping (Result<Data,ApiErrors>)-> Void){
         let endPoint = EndPoints.createPost.rawValue
@@ -108,33 +110,6 @@ class ApiManager{
                 }
             }
             task.resume()
-    }
-    
-    private func createHttpRequest(url: URL?,method: HttpMethods,body: URLComponents? = nil,completionHandler: @escaping (URLRequest) -> Void){
-        guard let url = url else{return}
-        var request = URLRequest(url: url)
-        if method == .POST {
-            request.httpMethod = method.rawValue
-            request.httpBody = body?.query?.data(using: .utf8)
-            completionHandler(request)
-            
-        }
-        //        else if method == .DELETE{
-        //            request.httpMethod = "POST"
-        //            var components = URLComponents()
-        //            components.queryItems = [
-        //                URLQueryItem(name: "id", value: body?.postTitle),
-        //            ]
-        //            request.httpBody = components.query?.data(using: .utf8)
-        //            completionHandler(request)
-        //        }
-        
-        else{
-            request.httpMethod = method.rawValue
-            request.timeoutInterval = 30
-            completionHandler(request)
-        }
-        
     }
     
     
