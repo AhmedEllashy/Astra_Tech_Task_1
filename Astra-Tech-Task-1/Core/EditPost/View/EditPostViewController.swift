@@ -37,7 +37,7 @@ class EditPostViewController: UIViewController,UINavigationControllerDelegate {
             Utlities.loadingAlert(vc: self)
             editViewModel.updatePost(id: id, title: postTitle, message: messsage, img: image)
         }else{
-            coordinator?.customAlertController(image: "error", title: "error", message: "All Fields are required", fromVC: self)
+            coordinator?.customAlertController(state: .error, message: "All Fields are required", fromVC: self)
         }
     }
     //MARK: - Helpers
@@ -69,14 +69,15 @@ class EditPostViewController: UIViewController,UINavigationControllerDelegate {
 //MARK: - EditPostViewModelDelegate Methods
 extension EditPostViewController: EditPostViewModelDelegate{
     func updateUI() {
-        print("finished")
         DispatchQueue.main.async {
             self.presentedViewController?.dismiss(animated: true)
-        }
-        DispatchQueue.main.async {
+            
+            self.coordinator?.customAlertController(state:.success , message: "Post Updated Successfully", fromVC: self)
             guard let image = self.postImageView.image, let postTitle = self.titleTextField.text, let messsage = self.MessageTextField.text else{return}
             self.closure?(image, postTitle, messsage)
+
         }
+
         
         
     }
@@ -86,7 +87,7 @@ extension EditPostViewController: EditPostViewModelDelegate{
             self.presentedViewController?.dismiss(animated: true)
         }
         DispatchQueue.main.async {
-            self.coordinator?.customAlertController(image: "xmark.seal.fill", title: "ERROR", message: err, fromVC: self)
+            self.coordinator?.customAlertController(state: .error,message: err, fromVC: self)
         }
     }
     

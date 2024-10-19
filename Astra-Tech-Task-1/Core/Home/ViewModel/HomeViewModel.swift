@@ -10,7 +10,7 @@ import UIKit
 
 //MARK: - Protocol
 protocol HomeViewModelProtocol: NSObject{
-    var posts: [RealPostModel] {get set}
+    var posts: [PostModel] {get set}
     func getPosts()
 }
 
@@ -23,7 +23,7 @@ protocol HomeViewModelDelegate{
 class HomeViewModel: NSObject,HomeViewModelProtocol{
     //MARK: - Properties
     var apiManager: ApiManager = ApiManager()
-    var posts: [RealPostModel] = []
+    var posts: [PostModel] = []
     var delegate: HomeViewModelDelegate?
     static let shared = HomeViewModel()
         
@@ -39,18 +39,20 @@ class HomeViewModel: NSObject,HomeViewModelProtocol{
             case .success(let data):
                 do{
                     let decodedData = try JSONDecoder().decode([PostModel].self, from: data)
-                    var tempArr = [RealPostModel]()
-                    for item in decodedData{
-                        if let img = self.downloadImage(imageUrl: item.postImage){
-                            let realPost = RealPostModel(id: item.id, postTitle: item.postTitle, postMessage: item.postMessage,postImage: UIImage(data: img))
-                            tempArr.append(realPost)
-                        }else{
-                            let realPost = RealPostModel(id: item.id, postTitle: item.postTitle, postMessage: item.postMessage)
-                            tempArr.append(realPost)
-                        }
-                        self.posts = tempArr
-                    }
-                    
+                    self.posts = decodedData
+//                    var tempArr = [RealPostModel]()
+//                    for item in decodedData{
+//                        if let img = self.downloadImage(imageUrl: item.postImage){
+//                            print(img)
+//                            let realPost = RealPostModel(id: item.id, postTitle: item.postTitle, postMessage: item.postMessage,postImage: UIImage(data: img))
+//                            tempArr.append(realPost)
+//                        }else{
+//                            let realPost = RealPostModel(id: item.id, postTitle: item.postTitle, postMessage: item.postMessage)
+//                            tempArr.append(realPost)
+//                        }
+//                        self.posts = tempArr
+//                    }
+//                    
                     self.delegate?.updateUI()
                 }catch{
                     self.delegate?.errorOccured(err: error.localizedDescription)

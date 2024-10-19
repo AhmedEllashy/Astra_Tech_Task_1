@@ -65,9 +65,7 @@ extension PostDetailsViewController: PostDetailsViewModelDelegate{
         DispatchQueue.main.async {
             self.presentedViewController?.dismiss(animated: true)
         }
-        DispatchQueue.main.async {
-            self.navigationController?.popViewController(animated: true)
-        }
+        self.coordinator?.customAlertController(state: .success,message: "Post Deleted Successfully!", fromVC: self)
     }
     
     func errorOccured(err: String) {
@@ -75,7 +73,7 @@ extension PostDetailsViewController: PostDetailsViewModelDelegate{
             self.presentedViewController?.dismiss(animated: true)
         }
         DispatchQueue.main.async {
-            self.coordinator?.customAlertController(image: "xmark.seal.fill", title: "ERROR", message: err, fromVC: self)
+            self.coordinator?.customAlertController(state: .error,message: err, fromVC: self)
         }
         
     }

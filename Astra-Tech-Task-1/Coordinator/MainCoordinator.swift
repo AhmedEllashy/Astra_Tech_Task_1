@@ -52,15 +52,13 @@ class MainCoordinator: Coordinator{
         vc.messsage = message
         navController.pushViewController(vc, animated: true)
     }
-    func customAlertController(image: String,title: String,message: String,fromVC:UIViewController){
+    func customAlertController(state: AlertState , message: String,fromVC:UIViewController){
         let vc = CustomAlertViewController()
-        vc.imageName = image
-        vc.alertTitle = title
         vc.message = message
         vc.modalPresentationStyle = .overCurrentContext
         vc.coordinator = self
+        vc.state = state
         fromVC.present(vc, animated: true)
-        
     }
     func popUp(vc: UIViewController){
         vc.navigationController?.popViewController(animated: true)

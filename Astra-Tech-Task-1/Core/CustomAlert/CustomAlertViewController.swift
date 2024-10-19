@@ -39,11 +39,14 @@ class CustomAlertViewController: UIViewController {
     
         if state == .success{
             imageView.image = UIImage(systemName: "checkmark.message.fill")
+            titleLabel.text = "Success"
+
         }else{
             imageView.image = UIImage(systemName: "xmark.seal.fill")
             imageView.tintColor = UIColor.red
+            titleLabel.text = "error"
+
         }
-        titleLabel.text = alertTitle
         messageLabel.text = message
     }
     

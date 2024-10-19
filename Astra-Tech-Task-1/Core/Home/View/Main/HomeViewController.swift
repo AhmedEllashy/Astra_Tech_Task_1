@@ -28,7 +28,6 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         homeViewModel.getPosts()
-        Utlities.loadingAlert(vc: self)
     }
 
     override func viewDidLayoutSubviews() {
@@ -82,7 +81,12 @@ extension HomeViewController: UITableViewDataSource{
 extension HomeViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let post = homeViewModel.posts[indexPath.row]
-        self.coordinator?.postDetailsViewController(id:post.id,image: post.postImage, title: post.postTitle,message: post.postMessage)
+        guard let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell else {return}
+        var img: UIImage? = cell.image
+        if let img{
+            self.coordinator?.postDetailsViewController(id:post.id,image: img, title: post.postTitle,message: post.postMessage)
+        }
+
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
@@ -91,14 +95,13 @@ extension HomeViewController: UITableViewDelegate{
 extension HomeViewController: HomeViewModelDelegate{
     func updateUI() {
         DispatchQueue.main.async {
-            self.presentedViewController?.dismiss(animated: true)
             self.postsTableView.reloadData()
         }
     }
     
     func errorOccured(err: String) {
         DispatchQueue.main.async {
-            self.coordinator?.customAlertController(image: "checkmark.message.fill", title: "error", message: err,fromVC: self)
+            self.coordinator?.customAlertController(state:.error, message: err,fromVC: self)
         }
     }
     

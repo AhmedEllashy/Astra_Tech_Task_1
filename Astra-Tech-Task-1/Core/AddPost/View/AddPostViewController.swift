@@ -33,7 +33,7 @@ class AddPostViewController: UIViewController, UINavigationControllerDelegate {
             addPostViewModel.createPost(title: postTitle, message: message, img: image)
         }else{
             self.presentedViewController?.dismiss(animated: true)
-            coordinator?.customAlertController(image: "error", title: "error", message: "All Fields are required", fromVC: self)
+            coordinator?.customAlertController(state:.error, message: "All Fields are required", fromVC: self)
         }
         
     }
@@ -81,7 +81,7 @@ extension AddPostViewController: AddPostViewModelDelegate{
         DispatchQueue.main.async {
             self.presentedViewController?.dismiss(animated: true)
             
-            self.coordinator?.customAlertController(image: "done", title: "Success", message: "Post Created Succesfully", fromVC: self)
+            self.coordinator?.customAlertController(state:.success, message: "Post Created Succesfully", fromVC: self)
             
             self.titleTextField.text = ""
             self.messageTextField.text = ""
@@ -93,7 +93,7 @@ extension AddPostViewController: AddPostViewModelDelegate{
     func errorOccured(err: String) {
         DispatchQueue.main.async {
         
-            self.coordinator?.customAlertController(image: "error", title: "Error", message: err, fromVC: self)
+            self.coordinator?.customAlertController(state: .error,message: err, fromVC: self)
         }
     }
     

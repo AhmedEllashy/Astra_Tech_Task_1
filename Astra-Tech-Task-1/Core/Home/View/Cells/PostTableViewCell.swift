@@ -21,8 +21,8 @@ class PostTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
-
-//    var imageDownloadedClosure: ()->Void?
+    var image: UIImage?
+    var imageDownloadedClosure: ((_ image:UIImage) -> Void)?
   //MARK: - Life Cycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
@@ -34,6 +34,9 @@ class PostTableViewCell: UITableViewCell {
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        guard let image else{return}
+        imageDownloadedClosure?(image)
+        
     }
     
     override func layoutSubviews() {
@@ -54,9 +57,18 @@ class PostTableViewCell: UITableViewCell {
         postTitleLabel.frame = CGRect(x:postImageView.right + 20, y: 30, width: width - (postImageView.right + 20), height: 30)
 
     }
-    func config(post:RealPostModel){
+    func config(post:PostModel){
         postTitleLabel.text = post.postTitle
-        postImageView.image = post.postImage
+        let url = URL(string: post.postImage)
+        DispatchQueue.global().async {
+            let data = try? Data(contentsOf: url!)
+            guard let data else{return}
+            DispatchQueue.main.async {
+                self.image = UIImage(data: data)
+                self.postImageView.image = UIImage(data: data)
+
+            }
+        }
     }
     
     
