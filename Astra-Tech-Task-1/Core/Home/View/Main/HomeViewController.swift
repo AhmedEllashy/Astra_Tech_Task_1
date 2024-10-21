@@ -29,7 +29,6 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(true)
         homeViewModel.getPosts()
     }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         postsTableView.frame = view.bounds
@@ -43,7 +42,8 @@ class HomeViewController: UIViewController {
         homeViewModel.delegate = self
         addplusNavBarButton()
         title = "Home"
-        
+        Utlities.loadingAlert(vc: self)
+
 //        navigationController?.navigationBar.prefersLargeTitles = true
         
     }
@@ -82,9 +82,12 @@ extension HomeViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let post = homeViewModel.posts[indexPath.row]
         guard let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell else {return}
-        var img: UIImage? = cell.image
+        let img: UIImage? = cell.image
         if let img{
-            self.coordinator?.postDetailsViewController(id:post.id,image: img, title: post.postTitle,message: post.postMessage)
+            self.coordinator?.postDetailsViewController(realPost: RealPostModel(id: post.id, postTitle: post.postTitle, postMessage: post.postMessage, postImage: img))
+        }else{
+            self.coordinator?.postDetailsViewController(post: PostModel(id: post.id, postTitle: post.postTitle, postMessage: post.postMessage, postImage: post.postImage))
+
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -95,6 +98,7 @@ extension HomeViewController: UITableViewDelegate{
 extension HomeViewController: HomeViewModelDelegate{
     func updateUI() {
         DispatchQueue.main.async {
+            self.presentedViewController?.dismiss(animated: true)
             self.postsTableView.reloadData()
         }
     }

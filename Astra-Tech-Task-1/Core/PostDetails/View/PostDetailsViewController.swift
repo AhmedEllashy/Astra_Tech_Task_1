@@ -12,6 +12,7 @@ class PostDetailsViewController: UIViewController {
     var coordinator: MainCoordinator?
     var id: Int?
     var image: UIImage?
+    var imageUrl:String?
     var postTitle: String?
     var message: String?
     var vm: PostDetailsViewModel = PostDetailsViewModel()
@@ -34,10 +35,10 @@ class PostDetailsViewController: UIViewController {
         vc.image = image
         vc.postTitle = postTitle
         vc.messsage = message
-        
+        vc.coordinator = coordinator
         vc.closure = { [weak self] image, title, message in
             guard let self else{return}
-     
+            
             self.postImageView.image = image
             self.postTitleLabel.text = title
             self.postMessageLabel.text = message
@@ -48,18 +49,44 @@ class PostDetailsViewController: UIViewController {
         Utlities.loadingAlert(vc: self)
         vm.deletePost(id: id)
     }
-
+    
     //MARK: - Helpers
     private func setup(){
         postImageView.addCornerRadius(radius: 15)
-        postImageView.image = image ?? UIImage(systemName: "photo")
+        imageSetup()
         postTitleLabel.text = postTitle
         postMessageLabel.text = message
         vm.delegate = self
     }
- 
+    
+    private func imageSetup(){
+        if let imageUrl{
+            let url = URL(string: imageUrl)
+            DispatchQueue.global().async {
+                let data = try? Data(contentsOf: url!)
+                if let data {
+                    DispatchQueue.main.async {
+                        self.image = UIImage(data:data)
+                        self.postImageView.image = UIImage(data:data)
+                    }
+                }else{
+                    DispatchQueue.main.async {
+                        
+                        self.postImageView.image = UIImage(systemName: "photo")
+                    }
+                    
+                }
+            }
+        }
+        if let image{
+            self.postImageView.image = image
+        }
+        
+    }
+    
 }
 
+//MARK: -PostDetailsViewModel Delegate
 extension PostDetailsViewController: PostDetailsViewModelDelegate{
     func updateUI() {
         DispatchQueue.main.async {

@@ -12,12 +12,19 @@ protocol Coordinator{
     var navController: UINavigationController {get set}
     
     func start()
+    func addPostViewController()
+    func postDetailsViewController(realPost: RealPostModel?,post: PostModel?)
+    func editPostViewController(post:RealPostModel)
+    func customAlertController(state: AlertState , message: String,fromVC:UIViewController)
+    func popUp(vc: UIViewController)
+    
 
 }
 class MainCoordinator: Coordinator{
-    var childCoordinators: [Coordinator]?
     
+    var childCoordinators: [Coordinator]?
     var navController: UINavigationController
+    
     init(navController: UINavigationController) {
         self.navController = navController
     }
@@ -29,27 +36,40 @@ class MainCoordinator: Coordinator{
         navController.pushViewController(vc, animated: false)
     }
     
-    func postDetailsViewController(id:Int,image: UIImage?,title: String,message: String){
-        let vc = PostDetailsViewController()
-        vc.coordinator = self
-        vc.id = id
-        vc.image = image
-        vc.postTitle = title
-        vc.message = message
-        navController.pushViewController(vc, animated: true)
+    func postDetailsViewController(realPost: RealPostModel? = nil,post: PostModel? = nil){
+        if let realPost{
+            let vc = PostDetailsViewController()
+            vc.coordinator = self
+            vc.id = realPost.id
+            vc.image = realPost.postImage
+            vc.postTitle = realPost.postTitle
+            vc.message = realPost.postMessage
+            navController.pushViewController(vc, animated: true)
+        }
+        if let post{
+            let vc = PostDetailsViewController()
+            vc.coordinator = self
+            vc.id = post.id
+            vc.imageUrl = post.postImage
+            vc.postTitle = post.postTitle
+            vc.message = post.postMessage
+            navController.pushViewController(vc, animated: true)
+        }
     }
+    
     func addPostViewController(){
         let vc = AddPostViewController()
         vc.coordinator = self
         navController.pushViewController(vc, animated: true)
     }
-    func editPostViewController(id: Int,title: String?,message: String?,image: UIImage?){
+    
+    func editPostViewController(post:RealPostModel){
         let vc = EditPostViewController()
         vc.coordinator = self
-        vc.id = id
-        vc.image = image
-        vc.postTitle = title
-        vc.messsage = message
+        vc.id = post.id
+        vc.image = post.postImage
+        vc.postTitle = post.postTitle
+        vc.messsage = post.postMessage
         navController.pushViewController(vc, animated: true)
     }
     func customAlertController(state: AlertState , message: String,fromVC:UIViewController){

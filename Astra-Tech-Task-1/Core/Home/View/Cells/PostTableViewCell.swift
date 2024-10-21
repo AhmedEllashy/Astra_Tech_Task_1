@@ -66,7 +66,6 @@ class PostTableViewCell: UITableViewCell {
             DispatchQueue.main.async {
                 self.image = UIImage(data: data)
                 self.postImageView.image = UIImage(data: data)
-
             }
         }
     }

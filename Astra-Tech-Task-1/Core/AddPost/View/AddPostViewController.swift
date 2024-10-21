@@ -92,7 +92,6 @@ extension AddPostViewController: AddPostViewModelDelegate{
     
     func errorOccured(err: String) {
         DispatchQueue.main.async {
-        
             self.coordinator?.customAlertController(state: .error,message: err, fromVC: self)
         }
     }

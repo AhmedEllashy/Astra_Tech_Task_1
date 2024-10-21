@@ -51,6 +51,7 @@ class EditPostViewController: UIViewController,UINavigationControllerDelegate {
         editViewModel.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPostImage(_:)))
+        postImageView.isUserInteractionEnabled = true
         postImageView.addGestureRecognizer(tapGesture)
     }
     
@@ -85,8 +86,6 @@ extension EditPostViewController: EditPostViewModelDelegate{
     func errorOccured(err: String) {
         DispatchQueue.main.async {
             self.presentedViewController?.dismiss(animated: true)
-        }
-        DispatchQueue.main.async {
             self.coordinator?.customAlertController(state: .error,message: err, fromVC: self)
         }
     }
